@@ -1,4 +1,4 @@
-# Local Whisper Transcriber
+# Local Audio Transcriber
 
 A privacy-first, zero-cost, local audio transcription pipeline built with `faster-whisper` and Docker. Designed to run efficiently on standard CPU hardware without needing a dedicated GPU or active internet connection during processing.
 
@@ -11,48 +11,35 @@ A privacy-first, zero-cost, local audio transcription pipeline built with `faste
 
 ## Prerequisites
 
-- **OS**: Linux (tested on a AMD Ryzen laptop running Ubuntu 26.04 LTS)
+- **OS**: Linux (tested with ThinkPad T14 Gen 1 AMD Ryzen 5 PRO, 16GB RAM, no GPU running Ubuntu 26.04 LTS)
 - **Container Engine**: [Docker](https://docs.docker.com/get-docker/) installed and runnable by non-root users
 - **Supported Formats**: `.ogg`, `.m4a`, `.wav`, `.mp3`
 
 ## Quick Start
 
 ### 1. Set Up Configuration
-Clone the repository and create your local `.env` file from the provided example:
-
+1. Clone the repository:
 ```bash
 git clone https://github.com/jamesgreenblue/local-audio-transcriber.git
+```
+2. Create your local `.env` file from the provided example:
+```bash
 cd local-audio-transcriber
 cp .env.example .env
 ```
-
-> **Note**: A `.env` file is strictly required. The script will throw an error and exit if `.env` is missing.
-
-### 2. Make Executable & Add to PATH
-Grant execution permissions to the script:
-
+3. Grant execution permissions to the script:
 ```bash
 chmod +x transcribe.sh
 ```
-
-*(Optional)* Add the script directory to your system `$PATH` so you can call `transcribe.sh` from any folder:
-
+4. Create your audio directory (or use the path defined in your `.env`):
 ```bash
-echo 'export PATH="$PATH:'"$(pwd)"'"' >> ~/.bashrc
-source ~/.bashrc
+mkdir -p audio output model-cache
 ```
-
-### 3. Run Transcription
-
-1. Create your audio directory (or use the path defined in your `.env`):
-   ```bash
-   mkdir -p audio output model-cache
-   ```
-2. Place your source audio files into `./audio/`.
-3. Execute the script:
-   ```bash
-   ./transcribe.sh
-   ```
+5. Place your source audio files into `./audio/`.
+6. Execute the script:
+```bash
+./transcribe.sh
+```
 
 Output transcripts will be saved to `./output/<filename>.txt` with minute/second timestamp formatting.
 
